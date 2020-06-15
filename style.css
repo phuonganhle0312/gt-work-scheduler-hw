@@ -12,7 +12,11 @@ body {
     border-left: 1px solid black;
     padding: 10px;
   }
-  
+  #planContainer {
+    background-color: lightcoral;
+  }
+
+
   .jumbotron {
     text-align: center;
     background-color: transparent;
