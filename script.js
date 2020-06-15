@@ -14,8 +14,8 @@ $(document).ready(function () { // current time from moment
         nowHour12 = 1;
     }
     // plan block variable
-    let $planBlocks = $('#timeblocks');
-    $planBlocks.empty();
+    let $planBlock = $('#planContainer');
+    $planBlock.empty();
     // fixed 9-5 work day hours with an index for array for offset from hour
     for (let hour = 9; hour <= 17; hour++) {
         let index = hour - 9;
@@ -24,7 +24,16 @@ $(document).ready(function () { // current time from moment
     let $planRow= $('<div>');
     $planRow.addClass('row');
     $planRow.attr('hourIndex', hour);
-    $planBlocks.append($planRow);
+    //time heading
+    //divs
+    let $timeDiv= $('<div>');
+    $timeDiv.addClass("time-div");
+    const $timeBox = $('<span>');
+    $timeBox.addClass("time-block");
+    
+
+
+    $planBlock.append($planRow);
     }
     // getting todos from localStorage. JSON parse string into object
     let savedPlans = JSON.parse(localStorage.getItem("savedPlans"));
