@@ -5,25 +5,33 @@ $(document).ready(function () { // current time from moment
     $dateHeading.text(currentTime);
     // testing variable
     const test = false;
-    // test in non standard hours
-    let nowHour24 = moment().format('H');
-    let nowHour12 = moment().format('h');
+    // // test in non standard hours
+    // let nowHour24 = moment().format('H');
+    // let nowHour12 = moment().format('h');
     // setting time for non standard hours
     if (test) {
         nowHour24 = 13;
         nowHour12 = 1;
     }
     let planArray =[];
-
+    
     //saving to local storage
-    $(document).on('click','i',function(event){
+    $("#save-btn").on('click',function(event){
     event.preventDefault();
-    let $index = $(this).attr('save');
-    let inputId = '#input-'+$index;
-    let $value =$(inputId).val();
-    planArray[$index]= $value;
+    let $inputValue = $textInput.value;
+    planArray[index]= $inputValue;
+    localStorage.setItem("savedPlans", JSON.stringify(planArray));
+   
+    displayText();
+    function displayText() {
+        let $savedPlan = JSON.parse(localStorage.getItem("savedPlans"));
+        $textInput.value= $savedPlan
+        }
+
+
 
     });
+    
 
 
     // plan block variable
@@ -63,19 +71,20 @@ $(document).ready(function () { // current time from moment
         $planBlock.append($planRow);
         // INPUT
         let $textInput = $('<input>');
-        $textInput.attr('id', `input-${index}`);
+        $textInput.attr('id', 'input-text');
         $textInput.attr('hourIndex', index);
         $textInput.attr('type', 'text');
         
         // retreive index from planArray
         $textInput.val(planArray[index]);
+        //div to append yo row
         let $inputDiv = $('<div>');
         $inputDiv.attr('class', 'input-div');
         $planRow.append($inputDiv);
         $inputDiv.append($textInput);
         //SAVE
         let $saveBtn = $('<button>');
-        $saveBtn.attr('id',`save-${index}`);
+        $saveBtn.attr('id','save-btn');
         $saveBtn.attr('save', index);
         $saveBtn.text("Save")
 
@@ -85,23 +94,28 @@ $(document).ready(function () { // current time from moment
         $saveDiv.append($saveBtn);
         $planRow.append($saveDiv);
         
+
+    }
+
+   
+
+    // function colorUpdate (){
+    //     $(".row").each(function(){
+    //         let hourBlock= parseInt($(this).attr("id").split("")[0]);
+    //     if (hourBlock < currentTime){
+    //         $(this).addClass("past");
+    //     } else if (hourBlock > currentTime){
+    //         $(this).removeClass("past");
+    //         $(this).addClass("present");
+
+    //     }
+    //     else {
+    //         $(this).removeClass("past");
+    //         $(this).removeClass("present");
+    //         $(this).addClass("future");
+    //     }
+        
     
-
-
-
-    }
-
-    // getting todos from localStorage. JSON parse string into object
-    let savedPlans = JSON.parse(localStorage.getItem("savedPlans"));
-    if (test) {
-        console.log(savedPlans);
-    }
-    // local storage plans update plan array
-    if (savedPlans !== null) {
-        planArray = savedPlans;
-    } else {
-        planArray = new Array(9);
-    }
-
-
+        
 });
+// colorUpdate();

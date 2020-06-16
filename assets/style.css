@@ -6,8 +6,12 @@ body {
   button{
   float: right;
   }
-
-
+.display-3{
+  font-size: x-large;
+}
+.lead{
+  font-size: large;
+}
 
   .input{
     background: transparent;
