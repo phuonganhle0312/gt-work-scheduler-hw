@@ -3,8 +3,10 @@ body {
     font-size: 16px;
     line-height: 1;
   }
-  
-  textarea{
+  button{
+  float: right;
+  }
+  .input{
     background: transparent;
     border: none;
     resize: none;
@@ -32,6 +34,8 @@ body {
   .time-block{
     text-align: center;
     border-radius: 15px;
+    background: purple;
+    color: white;
   }
   
   .row {

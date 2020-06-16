@@ -13,6 +13,11 @@ $(document).ready(function () { // current time from moment
         nowHour24 = 13;
         nowHour12 = 1;
     }
+
+    //saving to local storage
+    $(document).on('click',)
+
+
     // plan block variable
     let $planBlock = $('#planContainer');
     $planBlock.empty();
@@ -20,44 +25,64 @@ $(document).ready(function () { // current time from moment
     for (let hour = 9; hour <= 17; hour++) {
         let index = hour - 9;
 
+        // building plan blocks
+        let $planRow = $('<div>');
+        $planRow.attr('class', 'row');
+        $planRow.attr('hourIndex', hour);
 
+        // TIME
+        // div to hold box
+        let $timeDiv = $('<div>');
+        $timeDiv.addClass("time-div");
+        // time box contains time
+        const $timeBox = $('<span>');
+        $timeBox.addClass("time-block");
+        // hours to display
+        let displayTime = 0;
+        let amPm = "";
+        if (hour > 12) {
+            displayTime = hour - 12;
+            amPm = "pm";
+        } else {
+            displayTime = hour;
+            amPm = "am"
+        }
+        // display time in timebox
+        $timeBox.text(`${displayTime} ${amPm}`);
+        // append time box to time div
+        $planRow.append($timeDiv);
+        $timeDiv.append($timeBox);
+        // append row to container
+        $planBlock.append($planRow);
+        // INPUT
+        let $textInput = $('<input>');
+        $textInput.attr('id', `input-${index}`);
+        $textInput.attr('hourIndex', index);
+        $textInput.attr('type', 'text');
+        // retreive index from planArray
+        // $textInput.val(planArray[index]);
+        // let $inputDiv = $('<div>');
+        // $inputDiv.attr('class', 'input-div');
+        // $planRow.append($inputDiv);
+        // $inputDiv.append($textInput);
+        //SAVE
+        let $saveBtn = $('<button>');
+        $saveBtn.attr('id',`save-${index}`);
+        $saveBtn.attr('save', index);
+        $saveBtn.text("Save")
 
+        let $saveDiv= $('<div>');
+        $saveDiv.attr('class', 'save-div')
+
+        $saveDiv.append($saveBtn);
+        $planRow.append($saveDiv);
         
-    //building plan blocks
-    let $planRow= $('<div>');
-    $planRow.addClass('row');
-    $planRow.attr('hourIndex', hour);
-    //INPUT
-    let $textInput = $('<input>');
-    $textInput.attr('id',`input-${index}`);
+    
 
 
-    //TIME
-    //div to hold box
-    let $timeDiv= $('<div>');
-    $timeDiv.addClass("time-div");
-    //time box contains time
-    const $timeBox = $('<span>');
-    $timeBox.addClass("time-block");
-    //hours to display
-    let displayTime = 0;
-    let amPm = "";
-    if (hour > 12) {
-        displayTime = hour - 12;
-        amPm = "pm";
-    } else {
-        displayTime= hour;
-        amPm= "am"
-    }
-    //display time in timebox
-    $timeBox.text(`${displayTime} ${amPm}`);
-    //append time box to time div
-    $planRow.append($timeDiv);
-    $timeDiv.append($timeBox);
-    //append row to container
-    $planBlock.append($planRow);
 
     }
+
     // getting todos from localStorage. JSON parse string into object
     let savedPlans = JSON.parse(localStorage.getItem("savedPlans"));
     if (test) {
