@@ -13,9 +13,17 @@ $(document).ready(function () { // current time from moment
         nowHour24 = 13;
         nowHour12 = 1;
     }
+    let planArray =[];
 
     //saving to local storage
-    $(document).on('click',)
+    $(document).on('click','i',function(event){
+    event.preventDefault();
+    let $index = $(this).attr('save');
+    let inputId = '#input-'+$index;
+    let $value =$(inputId).val();
+    planArray[$index]= $value;
+
+    });
 
 
     // plan block variable
@@ -24,7 +32,6 @@ $(document).ready(function () { // current time from moment
     // fixed 9-5 work day hours with an index for array for offset from hour
     for (let hour = 9; hour <= 17; hour++) {
         let index = hour - 9;
-
         // building plan blocks
         let $planRow = $('<div>');
         $planRow.attr('class', 'row');
@@ -59,12 +66,13 @@ $(document).ready(function () { // current time from moment
         $textInput.attr('id', `input-${index}`);
         $textInput.attr('hourIndex', index);
         $textInput.attr('type', 'text');
+        
         // retreive index from planArray
-        // $textInput.val(planArray[index]);
-        // let $inputDiv = $('<div>');
-        // $inputDiv.attr('class', 'input-div');
-        // $planRow.append($inputDiv);
-        // $inputDiv.append($textInput);
+        $textInput.val(planArray[index]);
+        let $inputDiv = $('<div>');
+        $inputDiv.attr('class', 'input-div');
+        $planRow.append($inputDiv);
+        $inputDiv.append($textInput);
         //SAVE
         let $saveBtn = $('<button>');
         $saveBtn.attr('id',`save-${index}`);
