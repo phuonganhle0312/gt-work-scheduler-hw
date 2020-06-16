@@ -20,20 +20,43 @@ $(document).ready(function () { // current time from moment
     for (let hour = 9; hour <= 17; hour++) {
         let index = hour - 9;
 
+
+
+        
     //building plan blocks
     let $planRow= $('<div>');
     $planRow.addClass('row');
     $planRow.attr('hourIndex', hour);
-    //time heading
-    //divs
+    //INPUT
+    let $textInput = $('<input>');
+    $textInput.attr('id',`input-${index}`);
+
+
+    //TIME
+    //div to hold box
     let $timeDiv= $('<div>');
     $timeDiv.addClass("time-div");
+    //time box contains time
     const $timeBox = $('<span>');
     $timeBox.addClass("time-block");
-    
-
-
+    //hours to display
+    let displayTime = 0;
+    let amPm = "";
+    if (hour > 12) {
+        displayTime = hour - 12;
+        amPm = "pm";
+    } else {
+        displayTime= hour;
+        amPm= "am"
+    }
+    //display time in timebox
+    $timeBox.text(`${displayTime} ${amPm}`);
+    //append time box to time div
+    $planRow.append($timeDiv);
+    $timeDiv.append($timeBox);
+    //append row to container
     $planBlock.append($planRow);
+
     }
     // getting todos from localStorage. JSON parse string into object
     let savedPlans = JSON.parse(localStorage.getItem("savedPlans"));
